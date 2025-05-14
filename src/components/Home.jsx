@@ -51,6 +51,11 @@ export default function Home() {
           >
             Contact
           </a>
+          <a
+            href="#feature-engineering"
+            className='bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full transition'>
+              Feature Engineering
+          </a>
         </div>
 
         {/* Card 1: Welcome */}
