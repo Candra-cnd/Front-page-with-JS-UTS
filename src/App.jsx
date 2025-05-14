@@ -6,6 +6,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import DarkModeToggle  from './components/DarkModeToggle';
+import FeatureSection from './components/FeatureSection';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -20,6 +21,7 @@ export default function App() {
         <Home />
         <About />
         <Projects />
+        <FeatureSection />
         <Contact />
         <Footer />
       </div>
