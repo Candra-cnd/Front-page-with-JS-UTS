@@ -1,122 +1,118 @@
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useState } from 'react';
+
 export default function FeatureSection() {
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [copiedOutput, setCopiedOutput] = useState(false);
+
+  const pythonCode = `# Meminta input dari pengguna
+nama = input("Masukkan nama mahasiswa: ")
+nim = input("Masukkan NIM: ")
+nilai = int(input("Masukkan nilai ujian (0-100): "))
+
+# Menampilkan tipe data
+print(f"\nNama: {nama} (type: {type(nama)})")
+print(f"NIM: {nim} (type: {type(nim)})")
+print(f"Nilai: {nilai} (type: {type(nilai)})")
+
+# Menentukan kategori nilai
+if 85 <= nilai <= 100:
+    kategori = "A (Sangat Baik)"
+elif 75 <= nilai <= 84:
+    kategori = "B (Baik)"
+elif 60 <= nilai <= 74:
+    kategori = "C (Cukup)"
+elif 40 <= nilai <= 59:
+    kategori = "D (Kurang)"
+elif 0 <= nilai < 40:
+    kategori = "E (Sangat Kurang)"
+else:
+    kategori = "Nilai tidak valid"
+
+# Menampilkan hasil evaluasi
+print("\nHasil Evaluasi:")
+print(f"Mahasiswa: {nama} (NIM: {nim})")
+print(f"Nilai Ujian: {nilai}")
+print(f"Kategori Nilai: {kategori}")`;
+
+  const programOutput = `Nama: Candra Aditya (type: <class 'str'>)
+NIM: 152022130 (type: <class 'str'>)
+Nilai: 87 (type: <class 'int'>)
+
+Hasil Evaluasi:
+Mahasiswa: Candra Aditya (NIM: 152022130)
+Nilai Ujian: 87
+Kategori Nilai: A (Sangat Baik)`;
+
   return (
-    <section id="feature-engineering" className="py-12 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">Feature Engineering Pipeline with Model Training end Evaluation</h2>
+    <section id="feature-engineering" className="py-16 px-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-10">Introduction to Python and Data Science Case Study Assignment</h2>
 
         <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow space-y-10">
           {/* Deskripsi awal proyek */}
           <div>
             <h3 className="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">
-              Housing Dataset Feature Engineering & Regression Analysis
+              Student Grade Evaluation Program with Python
             </h3>
             <p className="mb-3">
-              This project aims to build a machine learning pipeline to predict house prices based on the 
-              <strong>Housing.csv</strong>. The workflow includes the stages of <em>data preparation</em>,
-                <em>feature engineering</em>, model training, and prediction evaluation.
+              A simple Python-based program that accepts user input in the form of student name, student ID number, and exam score (0–100). The program will:
             </p>
             <ul className="list-disc ml-6 text-sm mt-6 mb-4 space-y-1 text-left">
-                <li><strong>Cleaning Data:</strong> Remove duplicates and check for empty values.</li>
-                <li><strong>Encoding:</strong> Label encoding for binary categorical columns, and one-hot encoding for multicategory columns such as <code>furnishingstatus</code>.</li>
-                <li><strong>Feature Scaling:</strong> Use <code>StandardScaler</code> to normalize numeric columns such as <code>area</code>, <code>price</code>, and others.</li>
-                <li><strong>Exploratory Data Analysis:</strong> Analyze correlations between features with heatmaps and detect relationships to target <code>price</code>.</li>
-                <li><strong>Modeling:</strong> Train two regression models, namely Linear Regression and XGBoost, to compare performance.</li>
-                <li><strong>Evaluation:</strong> Analyze the residuals (difference between predictions and actual values) to understand the accuracy and distribution of model errors.</li>
+              <li>Display the data type of input.</li>
+              <li>Categories text scores into grade letters (A-E) with descriptions using if-elif-else logic.</li>
+              <li>Displays complete evaluation results with student information.</li>
             </ul>
-          </div>
 
-          {/* Tabel fitur */}
-          <div>
-            <h4 className="font-semibold mt-6 mb-4 text-lg">Table Feature Housing Dataset</h4>
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full text-sm text-left border border-gray-300 dark:border-gray-700">
-                <thead className="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white">
-                  <tr>
-                    <th className="px-4 py-2 border">Column Name</th>
-                    <th className="px-4 py-2 border">Data Type</th>
-                    <th className="px-4 py-2 border">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
-                  <tr><td className="px-4 py-2 border">price</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Selling price of the house.</td></tr>
-                  <tr><td className="px-4 py-2 border">area</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Total area of the house (in square feet).</td></tr>
-                  <tr><td className="px-4 py-2 border">bedrooms</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Number of bedrooms in the house.</td></tr>
-                  <tr><td className="px-4 py-2 border">bathrooms</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Number of bathrooms in the house.</td></tr>
-                  <tr><td className="px-4 py-2 border">stories</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Number of stories (floors) in the house.</td></tr>
-                  <tr><td className="px-4 py-2 border">mainroad</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house is located on a main road (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">guestroom</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house has a guestroom (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">basement</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house includes a basement (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">hotwaterheating</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house has hot water heating (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">airconditioning</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house has air conditioning (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">parking</td><td className="px-4 py-2 border">int64</td><td className="px-4 py-2 border">Number of car parking spaces available.</td></tr>
-                  <tr><td className="px-4 py-2 border">prefarea</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Whether the house is in a preferred residential area (yes/no).</td></tr>
-                  <tr><td className="px-4 py-2 border">furnishingstatus</td><td className="px-4 py-2 border">object</td><td className="px-4 py-2 border">Furnishing level: furnished, semi-furnished, or unfurnished.</td></tr>
-                </tbody>
-              </table>
+            {/* Kode program Python */}
+            <div className="mt-6">
+              <h4 className="font-semibold text-lg text-green-700 dark:text-green-400 mb-2">Python Code</h4>
+              <div className="relative">
+                <CopyToClipboard text={pythonCode} onCopy={() => setCopiedCode(true)}>
+                  <button className="absolute top-2 right-2 bg-green-600 text-white text-xs px-3 py-1 rounded hover:bg-green-700">
+                    {copiedCode ? 'Copied!' : 'Copy'}
+                  </button>
+                </CopyToClipboard>
+                <pre className="bg-gray-900 text-green-100 text-xs md:text-sm p-4 rounded overflow-x-auto whitespace-pre-wrap text-left">
+                  {pythonCode}
+                </pre>
+              </div>
+            </div>
+
+            {/* Output dari program */}
+            <div className="mt-4">
+              <h4 className="font-semibold text-lg text-purple-700 dark:text-purple-400 mb-2">Program Output</h4>
+              <div className="relative">
+                <CopyToClipboard text={programOutput} onCopy={() => setCopiedOutput(true)}>
+                  <button className="absolute top-2 right-2 bg-purple-600 text-white text-xs px-3 py-1 rounded hover:bg-purple-700">
+                    {copiedOutput ? 'Copied!' : 'Copy'}
+                  </button>
+                </CopyToClipboard>
+                <pre className="bg-gray-800 text-purple-100 text-xs md:text-sm p-4 rounded overflow-x-auto whitespace-pre-wrap text-left">
+                  {programOutput}
+                </pre>
+              </div>
+            </div>
+
+            {/* Hasil */ }
+            <div className="mt-6">
+              <h4 className="font-semibold text-lg text-gray-800 dark:text-gray-200 mb-2">Results :</h4>
+              <ul className="list-disc ml-6 text-sm space-y-2 text-left">
+                <li>
+                  <strong>Data Type Validation :</strong> Indicates that the input has been received and recognized corrently by the program.
+                </li>
+                <li>
+                  <strong>Value Evaluation :</strong> Confirms that the value of 87 is in the A (Good) category because it is in rage of 85 - 100.
+                </li>
+                <li>
+                  <strong>Complete Reporting :</strong> Displays student identity and evaluation results comprehensively.x
+                </li>
+              </ul>
             </div>
           </div>
-
-          {/* Visualisasi Analisis Model */}
-          <div className="space-y-8">
-            <h4 className="text-xl font-semibold text-purple-600 dark:text-purple-400">Model Evaluation Visualization</h4>
-
-            <div>
-              <h5 className="font-semibold mb-1">Outlier Detection</h5>
-              <p className="text-sm mb-2">
-                Outliers are detected from the residual scatterplot. Outliers tend to appear in houses with extreme prices and areas.
-              </p>
-              <img src="/assets/Outliers in Area.png" alt="Outlier plot" className="rounded shadow-md mx-auto" />
-            </div>
-
-            <div>
-              <h5 className="font-semibold mb-1">Residual Plot</h5>
-              <p className="text-sm mb-2">
-                The residuals are spread around the zero line, but there is underprediction at high prices.
-              </p>
-              <img src="/assets/Residual Plot XGBoost.png" alt="Residual plot" className="rounded shadow-md mx-auto" />
-            </div>
-
-            <div>
-              <h5 className="font-semibold mb-1">Histogram of Residuals</h5>
-              <p className="text-sm mb-2">
-                Most of the errors are close to 0 indicating that the model has good performance.
-              </p>
-              <img src="/assets/Histogram of Residuals.png" alt="Histogram of residuals" className="rounded shadow-md mx-auto" />
-            </div>
-
-            <div>
-              <h5 className="font-semibold mb-1">QQ Plot</h5>
-              <p className="text-sm mb-2">
-                The residual distribution is fairly normal (points follow the line), validation of the linear regression model.
-              </p>
-              <img src="/assets/QQ Plot of Residuals.png" alt="QQ plot" className="rounded shadow-md mx-auto" />
-            </div>
-          </div>
-
-          {/* Tools */}
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-6">
-            Tools: Python, Pandas, Scikit-learn, Seaborn, Matplotlib, XGBoost
-          </p>
-
-          {/* Conclusion */}
-            <div className="mt-10 bg-blue-50 dark:bg-blue-900/40 p-6 rounded-lg shadow text-sm md:text-base text-gray-800 dark:text-gray-100">
-            <h4 className="text-lg font-semibold mb-3 text-blue-700 dark:text-blue-300">
-                Final Conclusion
-            </h4>
-            <p className="mb-2">
-                Based on the visualizations and residual analysis, the model is able to predict house prices quite accurately across most of the dataset.
-                This is supported by the residuals being randomly scattered around zero and the histogram showing a symmetric distribution centered near zero.
-            </p>
-            <p className="mb-2">
-                However, the model tends to underpredict high-priced houses and is affected by extreme outliers. The QQ plot also shows that the residuals follow a near-normal distribution,
-                validating the use of linear regression for this problem.
-            </p>
-            <p>
-                To further improve model performance, it's recommended to handle outliers more effectively and consider adding features such as location or house quality if available.
-            </p>
-            </div>
         </div>
       </div>
     </section>
   );
 }
+
